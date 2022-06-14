@@ -6,7 +6,7 @@ import processing.core.PApplet;
 /**
  * 
  * @author Jeremy
- * @version 5/9/18 10:32PM
+ * @version 6/14/22
  *
  * Represents a line object used for collision detection with the track objects
  *
@@ -14,16 +14,19 @@ import processing.core.PApplet;
 
 public class HitLine {
 
-	private Line2D.Double line;
+	private Line2D.Double line; // stored line object
 
+	// constructor based on endpoints
 	public HitLine(double x, double y, double x2, double y2) {
 		line = new Line2D.Double(x, y, x2, y2);
 	}
 
+	// copy constructor
 	public HitLine(HitLine other) {
 		line = new Line2D.Double(other.getLine().x1, other.getLine().y1, other.getLine().x2, other.getLine().y2);
 	}
 
+	// getters
 	public double getX1() {
 		return line.getX1();
 	}
@@ -44,15 +47,18 @@ public class HitLine {
 		return line;
 	}
 
+	// distance formula for length
 	public double getLength() {
 		return Math.sqrt(Math.pow(line.getX2() - line.getX1(), 2) + Math.pow(line.getY2() - line.getY1(), 2));
 	}
 
+	// draw line (for testing)
 	public void draw(PApplet p) {
 		p.line((int) line.getX1(), (int) line.getY1(), (int) line.getX2(), (int) line.getY2());
 
 	}
 
+	// find the intersection point of two lines
 	public Point2D.Double findIntersection(HitLine other) {
 		Line2D.Double o = other.getLine();
 
@@ -90,10 +96,12 @@ public class HitLine {
 		return new Point2D.Double(xIntersect, yIntersect);
 	}
 
+	// adjust line
 	public void moveBy(double xAmount, double yAmount) {
 		line.setLine(line.getX1() + xAmount, line.getY1() + yAmount, line.getX2() + xAmount, line.getY2() + yAmount);
 	}
 
+	// find angular bearing of the line
 	public double getBearing() {
 		double a = 0;
 		double dy = line.getY2() - line.getY1();
@@ -112,6 +120,7 @@ public class HitLine {
 		return a;
 	}
 
+	// setters
 	public void setBearing(double bearing) {
 		double length = getLength();
 		line.setLine(line.getX1(), line.getY1(), line.getX1() + length * Math.sin(bearing),

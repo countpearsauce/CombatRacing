@@ -22,7 +22,7 @@ import weapons.Weapon;
 /**
  * 
  * @author Jeremy and Vishnu
- * @version 5/19/18 11:20PM
+ * @version 6/14/2022
  * 
  *          This class represents the race track and contains all track objects
  *
@@ -45,8 +45,8 @@ public class Track extends PApplet {
 		trackNum = Integer.parseInt(endPath.substring(0, 1));
 		objects = new ArrayList<InteractiveObject>();
 
-		Car c1 = new Car("car1", 870, 95, 50, 1);
-		Car c2 = new Car("car2", 850, 60, 50, 1);
+		Car c1 = new Car("car1", 870, 95, 100, 1);
+		Car c2 = new Car("car2", 850, 60, 100, 1);
 		c1.rotate(Math.PI * 3 / 2);
 		c2.rotate(Math.PI * 3 / 2);
 
@@ -74,8 +74,8 @@ public class Track extends PApplet {
 		trackNum = Integer.parseInt(endPath.substring(0, 1));
 		objects = new ArrayList<InteractiveObject>();
 
-		Car c1 = new Car("car1", 870, 95, 50, weapon1);
-		Car c2 = new Car("car2", 850, 60, 50, weapon2);
+		Car c1 = new Car("car1", 870, 95, 100, weapon1);
+		Car c2 = new Car("car2", 850, 60, 100, weapon2);
 		c1.rotate(Math.PI * 3 / 2);
 		c2.rotate(Math.PI * 3 / 2);
 
@@ -128,11 +128,11 @@ public class Track extends PApplet {
 			if (track.get(x, y) == -3947581) { // regular road
 				double r = Math.random();
 				if (r > 2.0 / 3.0)
-					objects.add(new WeaponPowerUp("weaponPower", x, y, 180, 1.8, 1));
+					objects.add(new WeaponPowerUp("weaponPower", x, y, 300, 1.8, 1));
 				else if (r > 1 / 3.0)
-					objects.add(new ShieldPowerUp("shield", x, y, 250));
+					objects.add(new ShieldPowerUp("shield", x, y, 300));
 				else
-					objects.add(new HealthPowerUp("hpBoost", x, y, 10));
+					objects.add(new HealthPowerUp("hpBoost", x, y, 20));
 				retry = false;
 			}
 		}
@@ -280,13 +280,19 @@ public class Track extends PApplet {
 				int a = track.get((int) lines.get(k).getX1(), (int) lines.get(k).getY1());
 
 				if (a == -14503604) // grass
-					modifier += 3.5;
+					modifier += 4.5;
 				else if (a == -8421505) // dark road
-					modifier += 1.5;
+					modifier += 2.5;
 				else if (a == -15305678) // dark grass
-					modifier += 5.5;
+					modifier += 6;
+				else if(a == -16735512){ // water
+					modifier += 20;
+				}
+				else if(a == -3947581){ // road
+					
+				}
 				else {
-
+					
 				}
 			}
 			c.act(modifier);
@@ -354,30 +360,36 @@ public class Track extends PApplet {
 		}
 
 		double modifier = 0;
+		
+		double shortBearing = 0.03;
+		double MediumBearing = 0.06;
+		double LongBearing = 0.12;
+		double flankBearing = 0.30;
+		
 
 		HitLine right1 = lines.get(1);
 
 		HitLine left1 = lines.get(3);
 
 		HitLine rightMedium = new HitLine(right1.getX2(), right1.getY2(), right1.getX2() + 95, right1.getY2());
-		rightMedium.setBearing(right1.getBearing() + 0.05);
+		rightMedium.setBearing(right1.getBearing() + MediumBearing);
 		HitLine leftMedium = new HitLine(left1.getX1(), left1.getY1(), left1.getX1() + 95, left1.getY1());
-		leftMedium.setBearing(left1.getBearing() + Math.PI - 0.05);
+		leftMedium.setBearing(left1.getBearing() + Math.PI - MediumBearing);
 
-		HitLine rightShort = new HitLine(right1.getX2(), right1.getY2(), right1.getX2() + 50, right1.getY2());
-		rightShort.setBearing(right1.getBearing() + 0.03);
-		HitLine leftShort = new HitLine(left1.getX1(), left1.getY1(), left1.getX1() + 50, left1.getY1());
-		leftShort.setBearing(left1.getBearing() + Math.PI - 0.03);
+		HitLine rightShort = new HitLine(right1.getX2(), right1.getY2(), right1.getX2() + 60, right1.getY2());
+		rightShort.setBearing(right1.getBearing() + shortBearing);
+		HitLine leftShort = new HitLine(left1.getX1(), left1.getY1(), left1.getX1() + 60, left1.getY1());
+		leftShort.setBearing(left1.getBearing() + Math.PI - shortBearing);
 
 		HitLine rightLong = new HitLine(right1.getX2(), right1.getY2(), right1.getX2() + 125, right1.getY2());
-		rightLong.setBearing(right1.getBearing() + 0.1);
+		rightLong.setBearing(right1.getBearing() + LongBearing);
 		HitLine leftLong = new HitLine(left1.getX1(), left1.getY1(), left1.getX1() + 125, left1.getY1());
-		leftLong.setBearing(left1.getBearing() + Math.PI - 0.1);
+		leftLong.setBearing(left1.getBearing() + Math.PI - LongBearing);
 
 		HitLine rightWing = new HitLine(right1.getX2(), right1.getY2(), right1.getX2() + 40, right1.getY2());
-		rightWing.setBearing(right1.getBearing() + 0.3);
+		rightWing.setBearing(right1.getBearing() + flankBearing);
 		HitLine leftWing = new HitLine(left1.getX1(), left1.getY1(), left1.getX1() + 40, left1.getY1());
-		leftWing.setBearing(left1.getBearing() + Math.PI - 0.3);
+		leftWing.setBearing(left1.getBearing() + Math.PI - flankBearing);
 
 		int h = track.get((int) rightShort.getX2(), (int) rightShort.getY2());
 		int f = track.get((int) leftShort.getX2(), (int) leftShort.getY2());
@@ -418,6 +430,23 @@ public class Track extends PApplet {
 		if (p == -14503604 || p == -15305678 || p == 0) {
 			leftL = true;
 		}
+		
+		double brakeMedium = 1.3;
+		double brakeHard = 2.0;
+		
+		double accelerateNormal = 0.4;
+		double accelerateFast = 0.6;
+		
+		double turnSlow = 0.5;
+		double turnNormal = 1.2;
+		double turnHard = 1.9;
+		
+		double speedThresholdTiny = 0.4;
+		double speedThresholdSmall = 0.5;
+		double speedThresholdMedium = 1.0;
+		double speedThresholdHigh = 1.5;
+		double speedThresholdFast = 1.8;
+		double speedThresholdFastest = 2.0;
 
 		if (!leftM || !rightM && !leftS || !rightS) {
 
@@ -426,141 +455,150 @@ public class Track extends PApplet {
 
 					AiBot.turn(true);
 					AiBot.slowDown(true);
-					if (AiBot.getVelocity() < 2)
-						AiBot.accelerateForward(0.9);
-					else if (AiBot.getVelocity() > 4)
+					if (AiBot.getVelocity() < speedThresholdHigh)
+						AiBot.accelerateForward(accelerateNormal);
+					else if (AiBot.getVelocity() > speedThresholdFastest)
 						AiBot.brake();
 
 					lastRight = true;
 				} else if (leftS && !rightS) {
-					AiBot.turn(true, 1.5);
+					AiBot.turn(true, turnHard);
 					AiBot.slowDown(true);
 
-					if (AiBot.getVelocity() > 1)
+					if (AiBot.getVelocity() > speedThresholdSmall)
 						AiBot.brake();
 					else
-						AiBot.accelerateForward(0.9);
+						AiBot.accelerateForward(accelerateNormal);
 					lastRight = true;
 				}
 
-			} else if (rightM) {
+			} 
+			else if (rightM) {
 				if (rightM && !rightS) {
 					AiBot.turn(false);
 					AiBot.slowDown(true);
 
-					if (AiBot.getVelocity() < 2)
-						AiBot.accelerateForward(0.9);
-					else if (AiBot.getVelocity() > 4)
+					if (AiBot.getVelocity() < speedThresholdHigh)
+						AiBot.accelerateForward(accelerateNormal);
+					else if (AiBot.getVelocity() > speedThresholdFastest)
 						AiBot.brake();
 
 					lastRight = false;
 				} else if (rightS && !leftS) {
-					AiBot.turn(false, 1.5);
+					AiBot.turn(false, turnHard);
 					AiBot.slowDown(true);
-					if (AiBot.getVelocity() > 1)
+					if (AiBot.getVelocity() > speedThresholdSmall)
 						AiBot.brake();
 					else
-						AiBot.accelerateForward(0.9);
+						AiBot.accelerateForward(accelerateNormal);
 					lastRight = false;
 				}
-			} else {
+			} 
+			else {
 				if (rightL && leftL) {
 
-					AiBot.turn(lastRight, 0.9);
+					AiBot.turn(lastRight, turnNormal);
 					AiBot.slowDown(true);
 
-					if (AiBot.getVelocity() > 3)
+					if (AiBot.getVelocity() > speedThresholdFast)
 						AiBot.brake();
-					else if (AiBot.getVelocity() > 2) {
+					else if (AiBot.getVelocity() > speedThresholdHigh) {
 
 					} else {
-						AiBot.accelerateForward(0.9);
+						AiBot.accelerateForward(accelerateNormal);
 					}
 
 				} else {
 					if (rightL && !leftL) {
-						if (AiBot.getVelocity() > 3)
+						if (AiBot.getVelocity() > speedThresholdFast)
 							AiBot.accelerateForward(0.7);
 						else
 							AiBot.accelerateForward(0.8);
-						if (AiBot.getVelocity() > 1.5) {
-							AiBot.turn(false, 0.5);
+						if (AiBot.getVelocity() > speedThresholdMedium) {
+							AiBot.turn(false, turnSlow);
 							lastRight = false;
 						}
 						AiBot.slowDown(true);
 					} else if (leftL && !rightL) {
-						if (AiBot.getVelocity() > 3)
+						if (AiBot.getVelocity() > speedThresholdFast)
 							AiBot.accelerateForward(0.7);
 						else
 							AiBot.accelerateForward(0.8);
-						if (AiBot.getVelocity() > 1.5) {
-							AiBot.turn(true, 0.5);
+						if (AiBot.getVelocity() > speedThresholdMedium) {
+							AiBot.turn(true, turnSlow);
 							lastRight = true;
 						}
 						AiBot.slowDown(true);
 					} else
-						AiBot.accelerateForward(0.9);
+						AiBot.accelerateForward(accelerateFast);
 				}
 			}
 
-		} else {
+		} 
+		else {
 
 			if (!leftM && rightM) {
 
-				if (AiBot.getVelocity() > 1.0)
+				if (AiBot.getVelocity() > speedThresholdSmall)
 					AiBot.brake();
-				else if (AiBot.getVelocity() < 0.3)
-					AiBot.accelerateForward(0.9);
+				else if (AiBot.getVelocity() < speedThresholdTiny)
+					AiBot.accelerateForward(accelerateNormal);
 				AiBot.turn(false);
 				AiBot.slowDown(true);
 
-			} else if (!rightM && leftM) {
-				if (AiBot.getVelocity() > 1.0)
+			} 
+			else if (!rightM && leftM) {
+				if (AiBot.getVelocity() > speedThresholdSmall)
 					AiBot.brake();
-				else if (AiBot.getVelocity() < 0.3)
-					AiBot.accelerateForward(0.9);
+				else if (AiBot.getVelocity() < speedThresholdTiny)
+					AiBot.accelerateForward(accelerateNormal);
 				AiBot.turn(true);
 				AiBot.slowDown(true);
-			} else if (!leftS && rightS) {
-				if (AiBot.getVelocity() > 1.0)
+			} 
+			else if (!leftS && rightS) {
+				if (AiBot.getVelocity() > speedThresholdSmall)
 					AiBot.brake();
-				else if (AiBot.getVelocity() < 0.3)
-					AiBot.accelerateForward(0.9);
+				else if (AiBot.getVelocity() < speedThresholdTiny)
+					AiBot.accelerateForward(accelerateFast);
 				AiBot.turn(false);
 				AiBot.slowDown(true);
-			} else if (!rightS && leftS) {
-				if (AiBot.getVelocity() > 1.0)
+			} 
+			else if (!rightS && leftS) {
+				if (AiBot.getVelocity() > speedThresholdSmall)
 					AiBot.brake();
-				else if (AiBot.getVelocity() < 0.3)
-					AiBot.accelerateForward(0.9);
+				else if (AiBot.getVelocity() < speedThresholdTiny)
+					AiBot.accelerateForward(accelerateFast);
 				AiBot.turn(true);
 				AiBot.slowDown(true);
-			} else if (rightM && leftM) {
+			} 
+			else if (rightM && leftM) {
 				if (leftS && rightS) {
+					
+					if (AiBot.getVelocity() > speedThresholdSmall)
+						AiBot.brake(brakeHard);
+					else if (AiBot.getVelocity() < speedThresholdTiny)
+						AiBot.accelerateForward(accelerateNormal);
 
-					if (AiBot.getVelocity() > 1.0)
-						AiBot.brake(2);
-					else if (AiBot.getVelocity() < 0.3)
-						AiBot.accelerateForward(0.9);
-
-					AiBot.turn(lastRight, 0.9);
+					AiBot.turn(lastRight, turnNormal);
 					AiBot.slowDown(true);
 
-				} else {
-					if (AiBot.getVelocity() > 1.0)
-						AiBot.brake(1.3);
-					else if (AiBot.getVelocity() < 0.3)
-						AiBot.accelerateForward(0.9);
+				} 
+				else {
+					if (AiBot.getVelocity() > speedThresholdSmall)
+						AiBot.brake(brakeMedium);
+					else if (AiBot.getVelocity() < speedThresholdTiny)
+						AiBot.accelerateForward(accelerateNormal);
 
-					AiBot.turn(lastRight, 0.9);
+					AiBot.turn(lastRight, turnNormal);
 					AiBot.slowDown(true);
 
 				}
-			} else if (leftS && rightS) {
-				if (AiBot.getVelocity() > 1.0)
+			} 
+			else if (leftS && rightS) {
+				if (AiBot.getVelocity() > speedThresholdSmall)
 					AiBot.brake();
-				else if (AiBot.getVelocity() < 0.3)
-					AiBot.accelerateForward(0.9);
+				else if (AiBot.getVelocity() < speedThresholdTiny)
+					AiBot.accelerateForward(accelerateNormal);
 				AiBot.turn(true);
 			}
 		}

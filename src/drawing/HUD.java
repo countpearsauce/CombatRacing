@@ -6,26 +6,28 @@ import processing.core.PApplet;
 /**
  * 
  * @author Jeremy
- * @version 5/19/18 11:20PM
+ * @version 6/14/2022
  * 
  * Displays car information for the players to see
  */
 public class HUD extends PApplet {
 
-	private int[][] carLaps;
-	private ArrayList<Car> c;
-	private int width;
-	private int height;
-	private int laps;
+	private int[][] carLaps;	// number of laps completed by cars
+	private ArrayList<Car> c;	// stores cars
+	private int width;			// hud width
+	private int height;			// hud height
+	private int laps;			// max laps
 	
+	// constructor
 	public HUD(int[][] carLaps, ArrayList<Car> c, int width, int height, int laps) {
-	this.carLaps = carLaps;
-	this.c = c;
-	this.width = width;
-	this.height = height;
-	this.laps = laps;
+		this.carLaps = carLaps;
+		this.c = c;
+		this.width = width;
+		this.height = height;
+		this.laps = laps;
 	}
 	
+	// drawer
 	public void draw(PApplet drawer) {
 		drawer.textAlign(CENTER);
 		drawOne(drawer, width/3, height, 0);
@@ -33,6 +35,7 @@ public class HUD extends PApplet {
 		
 	}
 	
+	// draw the lap counter for one car
 	private void drawOne(PApplet drawer, double x, double y, int index) {
 		
 		drawer.textSize(16);

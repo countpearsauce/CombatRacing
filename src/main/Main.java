@@ -9,8 +9,8 @@ import processing.core.PApplet;
 
 /**
  * 
- * @author Vishnu
- * @version 5/13/12:39PM
+ * @author Jeremy
+ * @version 6/14/2022
  * 
  * Contains main method and constructs a DrawingSurface
  *
@@ -25,7 +25,7 @@ public class Main {
 		JFrame window = (JFrame)canvas.getFrame();
 
 		
-		window.setMinimumSize(new Dimension(100,100));
+		window.setMinimumSize(new Dimension(320,180));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 

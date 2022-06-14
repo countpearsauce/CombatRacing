@@ -11,22 +11,18 @@ import weapons.Weapon;
 /**
  * 
  * @author Vishnu and Jeremy
- * @version 5/19/18 11:20PM
+ * @version 6/14/2022
  * 
  * Represents a car on the track
  *
  */
 public class Car extends MoveableObject {
 
-	/**
-	 * 
-	 */
-	private static int carCount = 0;
-	private int hp;
+	private static int carCount = 0;				// number of cars made
+	private int hp;									// car health
 	private Weapon turret;
 	private int carNum;
 
-	// these might change to not be static finals
 	private double maxForwardAcceleration;
 	private double maxForwardSpeed;
 	private double maxReverseAcceleration;

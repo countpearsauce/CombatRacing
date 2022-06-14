@@ -8,8 +8,8 @@ import processing.core.PApplet;
 
 /**
  * 
- * @author Vishnu
- * @version 5/13/12:39 PM
+ * @author Jeremy
+ * @version 6/14/2022
  * 
  * Screen that displays the game instructions
  * 
@@ -54,10 +54,10 @@ public class InstructionPanel extends Panel {
 			DrawingSurface.reset();
 			Menu.setPanel(new MainMenu(getWidth(), getHeight()));
 		} else if(getButtons().get(6).click(x,y)) {
-			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"3", "3_Custom"}, false));
+			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"1", "2", "3"}, false));
 		}
 		else if(getButtons().get(7).click(x,y)) {
-			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"1", "1_Custom", "2", "2_Custom", "3", "3_Custom"}, true));
+			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"1", "2", "3"}, true));
 		}
 	}
 

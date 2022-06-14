@@ -16,27 +16,26 @@ import processing.core.PApplet;
  */
 public class CarSelectionPanel extends Panel {
 
-	private int index1;
-	private int index2;
+	private int index1;				// stores weapon selection for player 1
+	private int index2;				// stores weapon selection for player 2
 
-	private boolean twoPlayer;
+	private boolean twoPlayer;		// whether second car is player controlled
 
-	private boolean p1ready;
-	private boolean p2ready;
+	private boolean p1ready;		// ready-up for player 1
+	private boolean p2ready;		// ready-up for player 2
 
-	private String[] weapons;
+	private String[] weapons;		// names of each weapon
 
-	private InteractiveObject a;
-	private InteractiveObject b;
+	private InteractiveObject a;	// displays car 1
+	private InteractiveObject b;	// displays car 1's turret
 
-	private InteractiveObject c;
-	private InteractiveObject d;
+	private InteractiveObject c;	// displays car 2
+	private InteractiveObject d;	// displays car 2's turret
 
 	public CarSelectionPanel(int width, int height, boolean twoPlayer) {
+		
+		// initialize everything
 		super(width, height);
-		
-		
-		
 		this.twoPlayer = twoPlayer;
 
 		index1 = 0;
@@ -44,18 +43,20 @@ public class CarSelectionPanel extends Panel {
 
 		p1ready = false;
 		p2ready = false;
-
+		
 		weapons = new String[] { "Machine Gun", "Sniper", "Cannon" };
 
 		Button exitToMenu = new Button(70, 1060, 140, 40, "Exit To Main");
 		
 		getButtons().add(exitToMenu);
 		
+		// player 1 menu instructions
 		getButtons().add(new Button(getWidth() / 2, 420, 560, 40, "Player 1: Left"));
 		getButtons().add(new Button(getWidth() / 2 - 140, 460, 280, 40, "Switch Weapon: A/D"));
 		getButtons().add(new Button(getWidth() / 2 + 140, 460, 280, 40, ""));
 		getButtons().add(new Button(getWidth() / 2, 500, 560, 40, ""));
 
+		// players 2 menu instructions
 		if (twoPlayer) {
 
 			getButtons().add(new Button(getWidth() / 2, 780, 560, 40, "Player 2: Right"));
@@ -71,10 +72,12 @@ public class CarSelectionPanel extends Panel {
 		
 	}
 
+	// drawer
 	public void draw(PApplet drawer) {
 
 		super.draw(drawer);
 
+		// weapon text display
 		String t1 = "";
 		String t2 = "";
 		if(index1 == 0) 
@@ -90,7 +93,7 @@ public class CarSelectionPanel extends Panel {
 		else if(index2 == 2)
 			t2 = "cannon";
 		
-		
+		// car and turret display
 		a = new InteractiveObject("car1", getWidth() / 2, 320, 50, 93, false, false);
 		b = new InteractiveObject(t1, getWidth() / 2, 320, 50, 50, false, false);
 		c = new InteractiveObject("car2", getWidth() / 2, 680, 50, 93, false, false);
@@ -99,6 +102,7 @@ public class CarSelectionPanel extends Panel {
 		a.draw(drawer);
 		b.draw(drawer);
 
+		// weapon choice + ready display
 		if (twoPlayer) {
 			c.draw(drawer);
 			d.draw(drawer);
@@ -120,6 +124,7 @@ public class CarSelectionPanel extends Panel {
 
 	}
 
+	// interpret key presses to car selection
 	public void keyPressed(char key, int keyCode) {
 		if (key == 'a') {
 			index1--;
@@ -151,6 +156,7 @@ public class CarSelectionPanel extends Panel {
 
 	}
 
+	// menu clicking
 	public void click(double x, double y) {
 		ArrayList<Button> box = getButtons();
 
