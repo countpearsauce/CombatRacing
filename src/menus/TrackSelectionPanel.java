@@ -64,9 +64,9 @@ public class TrackSelectionPanel extends Panel {
 	
 		drawer.textSize(50);
 		if(laps != 10)
-		drawer.text("Laps: " + laps, getWidth()/2, 775);
+			drawer.text("Laps: " + laps, getWidth()/2, 775);
 		else
-			drawer.text("Laps: Unlimited", getWidth()/2, 700);
+			drawer.text("Laps: Unlimited", getWidth()/2, 775);
 		
 		drawer.image(DrawingSurface.getPImage(("track" + tracks[index].charAt(0))), getWidth()/2 - 445,getHeight()/2 - 370, 890, 500);
 
@@ -98,10 +98,10 @@ public class TrackSelectionPanel extends Panel {
 		} else if(key == 's') {
 			if(laps != 10) {
 				DrawingSurface.setTrack(tracks[index], laps);
-				} else
-					DrawingSurface.setTrack(tracks[index], 99);
+			} else
+				DrawingSurface.setTrack(tracks[index], 99);
 				
-				Menu.setPanel(new CarSelectionPanel(getWidth(), getHeight(), twoPlayer));
+			Menu.setPanel(new CarSelectionPanel(getWidth(), getHeight(), twoPlayer));
 		}
 		
 		

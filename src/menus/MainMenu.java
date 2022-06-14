@@ -50,10 +50,10 @@ public class MainMenu extends Panel {
 	public void click(double mouseX, double mouseY) {
 	
 		if(getButtons().get(0).click(mouseX, mouseY)) {
-			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"3"}, false));
+			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"1", "2", "3"}, false));
 			
 		} else if(getButtons().get(1).click(mouseX, mouseY)) {
-			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"1", "2", "3"}, false));
+			Menu.setPanel(new TrackSelectionPanel(getWidth(), getHeight(), new String[] {"1", "2", "3"}, true));
 			
 		} 
 		else if (getButtons().get(2).getShape().contains(mouseX, mouseY)) {
