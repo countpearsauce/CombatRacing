@@ -1,12 +1,9 @@
 # CombatRacing
-
-Originally created by Jeremy and Vishnu for AP Computer Science, May 2018
-- I, Jeremy, did the brunt of the work for this project
+A refurbished version of a game I made in AP Computer Science in 2018
 
 Welcome to CombatRacing! Play solo against the computer or with a friend to race
 around the track with custom weaponized vehicles. Collect power-ups along the way
 to gain an advantage over your opponent in making laps or playing for total destruction!
-
 
 How to Play:
 
@@ -33,8 +30,5 @@ How to Play:
   Staying on the road will allow you to maintain faster speed. Power-ups will
   periodically appear on the track, collect them for temporary bonuses.
   Good Luck!
-
-
-Design Notes:
 
   
